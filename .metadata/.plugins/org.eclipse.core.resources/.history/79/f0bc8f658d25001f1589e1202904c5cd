@@ -1,0 +1,13 @@
+package com.userservice.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequetMapping("/api/v1")
+public class UserController {
+     
+	
+	
+	@GetMappin("/")
+	
+}

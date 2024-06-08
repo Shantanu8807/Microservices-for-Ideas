@@ -1,0 +1,17 @@
+package com.userservice.exception;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+	
+	
+	@ExceptionHandler(NoUsersPresentCurrently.class)
+	public ErrorResponseDto noUsersPresentCurrentlyHandler(WebRequest webrequest,Exception ex)
+	{
+		
+	}
+
+}
