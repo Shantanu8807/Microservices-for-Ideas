@@ -1,0 +1,5 @@
+package com.ideasservice.exception;
+
+public class NoIdeasFound extends RuntimeException{
+
+}

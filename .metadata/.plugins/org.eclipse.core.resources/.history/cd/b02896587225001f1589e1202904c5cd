@@ -1,0 +1,34 @@
+package com.ideasservice.Mapper;
+
+import java.util.List;
+
+import com.ideasservice.dto.IdeasDto;
+import com.ideasservice.model.Idea;
+
+public class IdeaMapper {
+	
+	
+	public static List<IdeasDto> ConvertIdeaToIdeasDto(List<Idea> idea,List<IdeasDto> ideaDto)
+	{
+		for(Idea ida:idea)
+		{
+			IdeasDto  iddto=new IdeasDto();
+			iddto.setCreatedDateTime(ida.getCreatedDateTime());
+			iddto.setDecription(ida.getDecription());
+			iddto.setIdeaTitle(ida.getIdeaTitle());
+			iddto.setSources(ida.getSources());
+			iddto.setStatus(ida.getStatus());
+			iddto.setTopicsIcluded(ida.getTopicsIcluded());
+			ideaDto.add(iddto);
+		}
+		
+		return ideaDto;
+	}
+	
+	
+	public static Idea ConvertIdeaDtoToIdea(IdeasDto ideaDto,Idea idea)
+	{
+		
+	}
+
+}

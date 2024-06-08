@@ -1,0 +1,19 @@
+package com.ideasservice.dto;
+
+import java.time.LocalDateTime;
+
+public class IdeasDto {
+
+	private String ideaTitle;
+
+	private String decription;
+
+	private String sources;
+
+	private String topicsIcluded;
+
+	private String status;
+
+	private LocalDateTime createdDateTime;
+
+}

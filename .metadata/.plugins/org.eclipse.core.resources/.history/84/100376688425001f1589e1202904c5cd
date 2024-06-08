@@ -1,0 +1,16 @@
+package com.ideasservice.feignclien;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.ideasservice.dto.UserDto;
+
+@FeignClient(name="user")
+public interface UserClient {
+	
+	
+	@GetMapping("/getUser")
+	public ResponseEntity<UserDto> getUserByEmail(String email);
+
+}

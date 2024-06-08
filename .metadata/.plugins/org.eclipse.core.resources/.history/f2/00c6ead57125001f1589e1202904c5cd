@@ -1,0 +1,12 @@
+package com.ideasservice.util;
+
+public class IdGenerator {
+
+	public Long generateId()
+	{
+		
+	}
+	
+	
+	
+}

@@ -1,0 +1,5 @@
+package com.ideasservice.dto;
+
+public class UserDto {
+
+}

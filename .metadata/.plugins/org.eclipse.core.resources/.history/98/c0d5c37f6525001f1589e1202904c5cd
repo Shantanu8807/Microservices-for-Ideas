@@ -1,0 +1,23 @@
+package com.ideasservice.dto;
+
+import java.time.LocalDateTime;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructorO
+public class ErrorResponseDto {
+	
+	
+	private String errorCode;
+	
+	private String errorMessage;
+	
+	private LocalDateTime datetime;
+
+}

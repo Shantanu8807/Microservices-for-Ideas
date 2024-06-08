@@ -1,0 +1,5 @@
+package com.ideasservice.repo;
+
+public interface IdeaRepo {
+
+}

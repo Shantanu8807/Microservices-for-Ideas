@@ -1,0 +1,45 @@
+package com.ideasservice.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.ideasservice.Mapper.IdeaMapper;
+import com.ideasservice.dto.IdeasDto;
+import com.ideasservice.dto.UserDto;
+import com.ideasservice.exception.NoIdeasFound;
+import com.ideasservice.exception.NoUserFoundException;
+import com.ideasservice.model.Idea;
+import com.ideasservice.repo.IdeaRepo;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class IdeaService {
+	
+	private IdeaRepo ideaRepo;
+	
+	public List<IdeasDto> getAllIdeasForUser(Long userId) throws NoIdeasFound
+	{
+		List<Idea> list=ideaRepo.findByUserId(userId);
+		List<IdeasDto> ideasDto=null;
+		if(list.isEmpty())
+		{
+			throw new NoIdeasFound("No Ideas Found For User  :"+  userId);
+		}
+		else
+		{
+			ideasDto=IdeaMapper.ConvertIdeaToIdeasDto(list, new ArrayList<IdeasDto>());
+		}
+		return ideasDto;
+	}
+	
+	
+	public UserDto checkIfUserExistsOrNot(String email) throws NoUserFoundException
+	{
+		
+	}
+
+}

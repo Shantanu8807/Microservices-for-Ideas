@@ -1,0 +1,16 @@
+package com.ideasservice.Mapper;
+
+import java.util.List;
+
+import com.ideasservice.dto.IdeasDto;
+import com.ideasservice.model.Idea;
+
+public class IdeaMapper {
+	
+	
+	public static List<IdeasDto> ConvertIdeaToIdeasDto(List<Idea> idea,List<IdeasDto> ideaDto)
+	{
+		
+	}
+
+}

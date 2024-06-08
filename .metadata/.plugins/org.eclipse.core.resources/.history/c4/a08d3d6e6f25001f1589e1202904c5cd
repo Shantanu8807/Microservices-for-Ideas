@@ -1,0 +1,5 @@
+package com.ideasservice.feignclien;
+
+public interface UserClient {
+
+}

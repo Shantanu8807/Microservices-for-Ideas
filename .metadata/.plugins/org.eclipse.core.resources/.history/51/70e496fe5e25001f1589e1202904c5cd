@@ -1,0 +1,26 @@
+package com.ideasservice.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Idea {
+	
+	
+	private Long userid;
+	
+	
+	private String ideaTitle;
+	
+	private String decription;
+	
+	private String sources;
+	
+	private String topicsIcluded;
+	
+	private String status;
+	
+	private LocalDateTime createdDateTime;
+
+}

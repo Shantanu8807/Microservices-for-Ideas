@@ -1,0 +1,5 @@
+package com.ideasservice.model;
+
+public class Idea {
+
+}

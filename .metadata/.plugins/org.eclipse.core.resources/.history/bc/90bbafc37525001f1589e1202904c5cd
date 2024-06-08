@@ -1,0 +1,22 @@
+package com.ideasservice.dto;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class ResponseDto extends GlobalResponseDto{
+	
+	public ResponseDto(List<IdeasDto> ideasDto, String string, String string2, LocalDateTime now) {
+		// TODO Auto-generated constructor stub
+	}
+
+	private List<IdeasDto> list;
+
+}

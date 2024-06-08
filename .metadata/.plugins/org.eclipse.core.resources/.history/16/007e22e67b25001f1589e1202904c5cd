@@ -1,0 +1,90 @@
+package com.ideasservice.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.ideasservice.Mapper.IdeaMapper;
+import com.ideasservice.dto.IdeasDto;
+import com.ideasservice.dto.UserDto;
+import com.ideasservice.exception.NoIdeasFound;
+import com.ideasservice.exception.NoUserFoundException;
+import com.ideasservice.feignclien.UserClient;
+import com.ideasservice.model.Idea;
+import com.ideasservice.repo.IdeaRepo;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class IdeaService {
+	
+	private IdeaRepo ideaRepo;
+	
+	private UserClient userClient;
+	
+	public List<IdeasDto> getAllIdeasForUser(Long userId) throws NoIdeasFound,NoUserFoundException
+	{
+		List<Idea> list=ideaRepo.findByUserId(userId);
+		List<IdeasDto> ideasDto=null;
+		if(list.isEmpty())
+		{
+			throw new NoIdeasFound("No Ideas Found For User  :"+  userId);
+		}
+		else
+		{
+			ideasDto=IdeaMapper.ConvertIdeaToIdeasDto(list, new ArrayList<IdeasDto>());
+		}
+		return ideasDto;
+	}
+	
+	
+	public UserDto checkIfUserExistsOrNot(String email) throws NoUserFoundException
+	{
+		ResponseEntity<UserDto> userDto=userClient.getUserByEmail(email);
+		if(userDto==null)
+		{
+			throw new NoUserFoundException("No User Found With Email     :"+email);
+		}
+		else
+		{
+			return userDto.getBody();
+		}
+	}
+	
+	public IdeasDto createNewIdeaForUser(UserDto userDto,IdeasDto ideasDto) throws NoUserFoundException
+	{
+		UserDto user=checkIfUserExistsOrNot(userDto.getEmail());
+		Idea idea=IdeaMapper.ConvertIdeaDtoToIdea(ideasDto,user,new Idea());
+		
+		ideaRepo.save(idea);
+		return ideasDto;
+	}
+	
+	public IdeasDto getIdeaForIdeaId(Long Id) throws NoIdeasFound
+	{
+		Optional<Idea> idea=ideaRepo.findById(Id);
+		IdeasDto ideasDto=new IdeasDto();
+		if(!idea.isEmpty())
+		{
+			ideasDto=IdeaMapper.ConvertIdeaToIdeasDto(idea.get(), ideasDto);
+			return ideasDto;
+		}
+		else
+		{
+			throw new NoIdeasFound("No Idea found");
+		}
+	}
+	
+	public String updateIdeaForUser(Long ideaId,UserDto userDto,IdeasDto ideaDto) throws NoIdeasFound,NoUserFoundException
+	{
+		UserDto user=checkIfUserExistsOrNot(userDto.getEmail());
+		
+		Idea idea=ideaRepo.findByUserIdAndId(user.getUserId(),ideaId);
+		
+	}
+
+}
