@@ -25,5 +25,31 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
 		
 	}
+	
+	
+	@ExceptionHandler(NoUserFoundException.class)
+	public ResponseEntity<ErrorResponseDto> NoUserFoundExceptionHandler(WebRequest webrequest,Exception ex)
+	{
+		ErrorResponseDto   errorResponseDto= new ErrorResponseDto();
+		errorResponseDto.setErrorMessage(ex.getLocalizedMessage());
+		errorResponseDto.setStatus(HttpStatus.NOT_FOUND.toString());
+		errorResponseDto.setTime(LocalDateTime.now());
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
+		
+	}
+	
+	@ExceptionHandler(UserAlreadyExistsWithEmail.class)
+	public ResponseEntity<ErrorResponseDto> UserAlreadyExistsWithEmailHandler(WebRequest webrequest,Exception ex)
+	{
+		ErrorResponseDto   errorResponseDto= new ErrorResponseDto();
+		errorResponseDto.setErrorMessage(ex.getLocalizedMessage());
+		errorResponseDto.setStatus(HttpStatus.NOT_FOUND.toString());
+		errorResponseDto.setTime(LocalDateTime.now());
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDto);
+		
+	}
+
 
 }

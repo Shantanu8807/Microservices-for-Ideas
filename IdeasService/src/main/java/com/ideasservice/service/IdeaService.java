@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ideasservice.Mapper.IdeaMapper;
+import com.ideasservice.dto.GlobalResponseDto;
 import com.ideasservice.dto.IdeasDto;
 import com.ideasservice.dto.UserDto;
 import com.ideasservice.exception.NoIdeasFound;
@@ -49,8 +50,8 @@ public class IdeaService {
 	public IdeasDto createNewIdeaForUser(UserDto userDto, IdeasDto ideasDto) throws NoUserFoundException {
 		UserDto user = checkIfUserExistsOrNot(userDto.getEmail());
 		Idea idea = IdeaMapper.ConvertIdeaDtoToIdea(ideasDto, user, new Idea());
-
 		ideaRepo.save(idea);
+		userClient.increaseIdeaTotalCount(user.getUserId());
 		return ideasDto;
 	}
 
@@ -108,9 +109,22 @@ public class IdeaService {
 			throw new NoIdeasFound("No Idea Found");
 		} else {
 			ideaRepo.deleteById(ideaId);
+			ResponseEntity<GlobalResponseDto> globalResponseDto = userClient.decrementIdeaTotalCount(user.getUserId());
+			System.out.println(globalResponseDto.getBody().getMessage());
 		}
 		return "Deleted Successfully";
 
+	}
+	
+	public String deleteAllIdeaOfUser(Long id) throws NoIdeasFound
+	{   
+		List<Idea> idea=ideaRepo.findByUserId(id);
+		if(idea.isEmpty()) {
+			throw new NoIdeasFound("No ideas Found");
+		}
+		ideaRepo.deleteAllByUserId(id);
+		
+		return "Deleted Successfully";
 	}
 
 }

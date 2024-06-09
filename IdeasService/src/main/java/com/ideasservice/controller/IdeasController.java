@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ideasservice.dto.GlobalResponseDto;
 import com.ideasservice.dto.IdeasDto;
 import com.ideasservice.dto.ResponseDto;
 import com.ideasservice.dto.UserDto;
@@ -63,6 +64,14 @@ public class IdeasController {
 		String response = ideaService.deleteIdea(ideaId, userDto);
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(new ResponseDto(null, HttpStatus.ACCEPTED.toString(), response, LocalDateTime.now()));
+	}
+	
+	@DeleteMapping("/deleteAllIdeasOfUser")
+	public ResponseEntity<GlobalResponseDto> deleteAllIdeaOfUser(Long userId) throws NoIdeasFound
+			{
+		String response = ideaService.deleteAllIdeaOfUser(userId);
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new GlobalResponseDto(HttpStatus.ACCEPTED.toString(), response, LocalDateTime.now()));
 	}
 
 }
